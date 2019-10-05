@@ -25,7 +25,7 @@ class Home extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        data: state
+        data: state.data
     }
 }
 

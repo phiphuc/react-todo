@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import { DELETE_ACTION , EDIT_ACTION } from '../../../../actions/index'
 import './TodoItem.css'
 class TodoItem extends Component {
 
@@ -31,8 +33,8 @@ class TodoItem extends Component {
                                     </span>
                                 </div>
                                 <div className="col-sm-4">
-                                    <button type="button" className="btn btn-primary">Sửa</button>
-                                    <button type="button" className="btn btn-primary delete">Xóa</button>
+                                    <button type="button" onClick={(e) => this.props.modifyData({type: EDIT_ACTION, payload: item})} className="btn btn-primary">Sửa</button>
+                                    <button type="button" onClick={(e) => this.props.modifyData({type: DELETE_ACTION, payload: item}) } className="btn btn-primary delete">Xóa</button>
                                 </div>
                             </div>
                         </div>
@@ -47,4 +49,11 @@ class TodoItem extends Component {
     }
 }
 
-export default TodoItem;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        modifyData: (info) => {
+            dispatch({type: info.type, payload: info.payload})
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(TodoItem);
